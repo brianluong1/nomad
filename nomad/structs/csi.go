@@ -715,6 +715,7 @@ func NewCSIPlugin(id string, index uint64) *CSIPlugin {
 		ID:          id,
 		CreateIndex: index,
 		ModifyIndex: index,
+		safeCopy:    true,
 	}
 
 	out.newStructs()
@@ -749,7 +750,7 @@ func (p *CSIPlugin) Copy() *CSIPlugin {
 	return out
 }
 
-func (p *CSIPlugin) SafeForInsert() bool {
+func (p *CSIPlugin) SafeToModify() bool {
 	if !p.safeCopy {
 		return false
 	}
